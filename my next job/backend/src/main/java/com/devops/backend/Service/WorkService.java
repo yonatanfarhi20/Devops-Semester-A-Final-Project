@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class WorkService{
     private final WorkJpaRepository workRepository;//יצרתי קבוע כי אנחנו לא משנים ולא רוצים לשנות את הערך שלו במימוש
-    private final WorkMapper workMapper;
+    private final WorkMapper workMapper;//כנ"ל
 
     public List<Work>getAllWorks(){
         return workRepository.findAll();
@@ -47,6 +47,9 @@ public class WorkService{
         if (temp.matches("^\\d+$"))
             return workRepository.findBySalaryGreaterThan(Integer.parseInt(temp));
         return workRepository.findByNameContaining(temp);
+    }
+    public Work findById(Long id){
+        return workRepository.findById(id).orElseThrow(() -> new RuntimeException("לא נמצא id:"+ id));
     }
 
 }

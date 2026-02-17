@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/works")
+@RequestMapping("/api/works")
 @AllArgsConstructor
 public class WorkController{
     private final WorkService workService;
@@ -35,9 +35,13 @@ public class WorkController{
     public List<Work>findBySalaryBetween(Integer  startSalary,Integer endSalary){
         return workService.findBySalaryBetween(startSalary,endSalary);
     }
-
     @GetMapping("/search")
     public List<Work> findByGenericInput(@RequestParam String temp) {
         return workService.findByGenericInput(temp);
+    }
+
+    @GetMapping("/{id}")
+    public Work findById(@PathVariable Long id){
+        return workService.findById(id);
     }
 }
